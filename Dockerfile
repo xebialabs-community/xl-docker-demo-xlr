@@ -6,6 +6,7 @@ ADD resources/xl-release-server.conf /opt/xlr/server/conf/xl-release-server.conf
 ADD resources/synthetic.xml /opt/xlr/server/ext/synthetic.xml
 RUN /opt/xlr/server/bin/run.sh -setup -reinitialize -force
 ADD resources/supervisord.conf /etc/supervisord.conf
+ADD resources/xl-release-server.conf /opt/xlr/server/conf/xl-release-server.conf
 RUN ln -fs /license/xl-release-license.lic /opt/xlr/server/conf/xl-release-license.lic
 CMD ["/usr/bin/supervisord"]
 EXPOSE 5516
