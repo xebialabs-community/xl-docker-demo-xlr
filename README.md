@@ -4,7 +4,8 @@ Docker image that has XLR installed.
 
 # Supported tags #
 
-* `latest`, `v5.0.1.3`
+* `latest`, `v6.0.0.1`
+* `v5.0.1.3`
 
 # Starting #
 
