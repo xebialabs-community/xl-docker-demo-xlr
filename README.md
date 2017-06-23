@@ -16,7 +16,8 @@ Docker image that has XLR installed.
 
 # Supported tags #
 
-* `latest`, `v7.0.0.1`
+* `latest`, `v7.0.1.1`
+* `v7.0.0.1`
 * `v7.0.0.0-alpha3`
 * `v7.0.0.0-alpha1`
 * `v6.2.0.1`
@@ -27,7 +28,7 @@ Docker image that has XLR installed.
 # Starting #
 
 ```
-docker run -v ~/xl-license:/license -p 5516:5516 xebialabs/xl-docker-demo-xlr
+docker run -v ~/xl-license:/license -p 15516:5516 xebialabs/xl-docker-demo-xlr
 ```
 
 The license volume mount is needed to provide a valid license, or store a license when logging in the first time. To access the UI, browse to http://[docker_ip]:5516
