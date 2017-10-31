@@ -42,4 +42,6 @@ docker run -v ~/xl-licenses:/license -p 15516:5516 xebialabs/xl-docker-demo-xlr
 docker run --rm -v [repo_location]:/opt/xlr/server/repository -v [archive_location]:/opt/xlr/server/archive -v ~/xl-licenses:/license -p 5516:5516 xebialabs/xl-docker-demo-xlr
 ```
 
+**NOTE**: When starting the container the **repository** and the **archive** should be empty or have been initialized at the same time
+
 The license volume mount is needed to provide a valid license, or store a license when logging in the first time. To access the UI, browse to http://[docker_ip]:5516
