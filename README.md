@@ -9,14 +9,15 @@ Docker image that has XLR installed.
 
 
 [xl-docker-demo-xlr-docker-hub-image]: https://img.shields.io/badge/docker-ready-blue.svg
-[xl-docker-demo-xlr-docker-hub-url]: https://registry.hub.docker.com/u/xebialabs/xl-docker-demo-xld/
+[xl-docker-demo-xlr-docker-hub-url]: https://registry.hub.docker.com/u/xebialabs/xl-docker-demo-xlr/
 [xl-docker-demo-xlr-license-image]: https://img.shields.io/badge/License-MIT-yellow.svg
 [xl-docker-demo-xlr-license-url]: https://opensource.org/licenses/MIT
 
 
 ## Supported tags
 
-* `latest`, `v7.2.0.2`
+* `latest`, `v7.5.0.1`
+* `v7.2.0.2`
 * `v7.2.0.1`
 * `v7.1.0.1`
 * `v7.0.1.1`
