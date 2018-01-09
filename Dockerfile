@@ -3,7 +3,7 @@ MAINTAINER XebiaLabs "info@xebialabs.com"
 
 RUN apk --no-cache add supervisor wget
 
-RUN wget -O /tmp/xl-release-trial.zip https://dist.xebialabs.com/xl-release-trial.zip && \ 
+RUN wget --progress=dot:giga -O /tmp/xl-release-trial.zip https://dist.xebialabs.com/xl-release-trial.zip && \
     mkdir -p /opt/xlr && unzip /tmp/xl-release-trial.zip -d /opt/xlr && \
     mv /opt/xlr/xl-release-*-server /opt/xlr/server && \
     rm -rf /tmp/xl-release-trial.zip
