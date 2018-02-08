@@ -12,9 +12,8 @@ COPY resources/xl-release-server.conf /opt/xlr/server/conf/xl-release-server.con
 COPY resources/synthetic.xml /opt/xlr/server/ext/synthetic.xml
 
 RUN /opt/xlr/server/bin/run.sh -setup -reinitialize -force && \
-    rm -rf /opt/xlr/server/log/* /opt/xlr/server/tmp/*
-
-RUN ln -fs /license/xl-release-license.lic /opt/xlr/server/conf/xl-release-license.lic
+    rm -rf /opt/xlr/server/log/* /opt/xlr/server/tmp/* && \
+    ln -fs /license/xl-release-license.lic /opt/xlr/server/conf/xl-release-license.lic
 
 COPY resources/supervisord.conf /etc/supervisord.conf
 COPY resources/xlr.conf /etc/supervisor/conf.d/
