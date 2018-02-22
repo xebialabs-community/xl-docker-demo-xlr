@@ -1,0 +1,27 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "true",
+        "creationTimestamp": null
+    },
+    "objects": [
+        {
+            "kind": "ConfigMap",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "xlrelease-license",
+                "creationTimestamp": null
+            },
+            "data": {
+                "xl-release-license.lic": "${LICENSE_KEY}"
+            }
+        }
+    ],
+    "parameters": [
+        {
+            "name": "LICENSE_KEY",
+            "required": true
+        }
+    ]
+}
