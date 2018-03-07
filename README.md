@@ -17,7 +17,7 @@ Docker image that has XLR installed.
 ## Supported tags
 
 * `latest`, `v7.6.1.1`
-* `v7.6.0.1`
+* ~~`v7.6.0.1`~~ nuked
 * `v7.5.0.2`
 * `v7.5.0.1`
 * `v7.2.0.2`
