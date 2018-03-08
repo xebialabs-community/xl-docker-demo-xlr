@@ -1,9 +1,10 @@
 FROM openjdk:jre-alpine
 MAINTAINER XebiaLabs "info@xebialabs.com"
+ARG DOWNLOAD_PASSWORD
 
 RUN apk --no-cache add supervisor wget
 
-RUN wget --progress=dot:giga -O /tmp/xl-release-trial.zip https://dist.xebialabs.com/xl-release-trial.zip && \
+RUN wget --progress=dot:giga -O /tmp/xl-release-trial.zip https://download:${DOWNLOAD_PASSWORD}@dist.xebialabs.com/customer/xl-release/product/7.5.2/xl-release-7.5.2-server.zip && \
     mkdir -p /opt/xlr && unzip /tmp/xl-release-trial.zip -d /opt/xlr && \
     mv /opt/xlr/xl-release-*-server /opt/xlr/server && \
     rm -rf /tmp/xl-release-trial.zip
