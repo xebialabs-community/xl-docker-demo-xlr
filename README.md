@@ -1,3 +1,7 @@
+# Deprecated
+
+Use the official [xebialabs/xl-release](https://store.docker.com/community/images/xebialabs/xl-release) image
+
 # xl-docker-demo-xlr
 
 Docker image that has XLR installed.
