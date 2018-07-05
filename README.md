@@ -20,7 +20,13 @@ Docker image that has XLR installed.
 
 ## Supported tags
 
-* `latest`, `v7.5.0.1`
+* `latest`, `v8.1.0.1`
+* `v8.0.0.1`
+* `v7.6.1.1`
+* ~~`v7.6.0.1`~~ nuked
+* `v7.5.2.1`
+* ~~`v7.5.0.2`~~ nuked
+* ~~`v7.5.0.1`~~ nuked
 * `v7.2.0.2`
 * `v7.2.0.1`
 * `v7.1.0.1`
@@ -50,3 +56,9 @@ docker run --rm -v [repo_location]:/opt/xlr/server/repository -v [archive_locati
 **NOTE**: When starting the container the **repository** and the **archive** should be empty or have been initialized at the same time
 
 The license volume mount is needed to provide a valid license, or store a license when logging in the first time. To access the UI, browse to http://[docker_ip]:5516
+
+## Extending this image
+
+If you're creating an image based on this image as a parent, know that you can add a config fragment (i.e. `myapp.conf`) to the `/etc/supervisor/conf.d` directory, see the supervisor docs [here](http://supervisord.org/configuration.html#include-section-settings). That will allow you to add your own programs to supervisor without having to override (copy/paste) the entire file.
+
+
