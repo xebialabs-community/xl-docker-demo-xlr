@@ -1,0 +1,118 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "true",
+    "creationTimestamp": null
+  },
+  "objects": [
+    {
+      "kind": "BuildConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "xlr-openshift",
+        "creationTimestamp": null,
+        "labels": {
+          "app": "xlr-openshift"
+        }
+      },
+      "spec": {
+        "triggers": [
+          {
+            "type": "ConfigChange"
+          },
+          {
+            "type": "ImageChange",
+            "imageChange": {}
+          }
+        ],
+        "runPolicy": "Serial",
+        "source": {
+          "type": "Git",
+          "git": {
+            "uri": "${GITHUB_URL}"
+          },
+          "contextDir": "${CONTEXT_DIR}"
+        },
+        "strategy": {
+          "type": "Docker",
+          "dockerStrategy": {
+            "from": {
+              "kind": "ImageStreamTag",
+              "name": "alpine-glibc:glibc-2.27"
+            }
+          }
+        },
+        "output": {
+          "to": {
+            "kind": "ImageStreamTag",
+            "name": "xlr-openshift:latest"
+          }
+        },
+        "resources": {},
+        "postCommit": {},
+        "nodeSelector": null
+      },
+      "status": {
+        "lastVersion": 0
+      }
+    },
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "name": "xlr-openshift",
+      "metadata": {
+        "name": "xlr-openshift",
+        "labels": {
+          "app": "xlr-openshift"
+        }
+      },
+      "spec": {
+        "lookupPolicy": {
+          "local": false
+        }
+      }
+    },
+    {
+      "apiVersion": "v1",
+      "kind": "ImageStream",
+      "name": "alpine-glibc",
+      "metadata": {
+        "name": "alpine-glibc",
+        "labels": {
+          "app": "xlr-openshift"
+        }
+      },
+      "spec": {
+        "lookupPolicy": {
+          "local": false
+        },
+        "tags": [
+          {
+            "annotations": null,
+            "from": {
+              "kind": "DockerImage",
+              "name": "frolvlad/alpine-glibc"
+            },
+            "importPolicy": {},
+            "name": "glibc-2.27",
+            "referencePolicy": {
+              "type": "Local"
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "parameters": [
+    {
+      "name": "GITHUB_URL",
+      "required": true
+    },
+    {
+      "name": "CONTEXT_DIR",
+      "value": "openshift",
+      "required": true
+    }
+  ]
+}

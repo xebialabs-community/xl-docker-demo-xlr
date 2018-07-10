@@ -1,0 +1,205 @@
+{
+    "kind": "Template",
+    "apiVersion": "v1",
+    "metadata": {
+        "name": "true",
+        "creationTimestamp": null
+    },
+    "objects": [
+        {
+            "kind": "Service",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "xlr-openshift",
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "xlr-openshift"
+                }
+            },
+            "spec": {
+                "ports": [
+                    {
+                        "name": "5516-tcp",
+                        "protocol": "TCP",
+                        "port": 5516,
+                        "targetPort": 5516
+                    }
+                ],
+                "selector": {
+                    "app": "xlr-openshift",
+                    "deploymentconfig": "xlr-openshift"
+                },
+                "type": "ClusterIP",
+                "sessionAffinity": "None"
+            },
+            "status": {
+                "loadBalancer": {}
+            }
+        },
+        {
+            "kind": "DeploymentConfig",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "xl-docker-demo-xlr",
+                "generation": 1,
+                "creationTimestamp": null,
+                "labels": {
+                    "app": "xl-docker-demo-xlr"
+                }
+            },
+            "spec": {
+                "strategy": {
+                    "type": "Recreate",
+                    "customParams": {},
+                    "recreateParams": {
+                        "timeoutSeconds": 600
+                    },
+                    "resources": {},
+                    "activeDeadlineSeconds": 21600
+                },
+                "triggers": [
+                    {
+                        "type": "ImageChange",
+                        "imageChangeParams": {
+                            "automatic": true,
+                            "containerNames": [
+                                "xl-docker-demo-xlr"
+                            ],
+                            "from": {
+                                "kind": "ImageStreamTag",
+                                "name": "${IMAGESTREAM_NAME}:${IMAGESTREAM_TAG}",
+                                "namespace": "${IMAGESTREAM_NAMESPACE}"
+                            }
+                        }
+                    },
+                    {
+                        "type": "ConfigChange"
+                    }
+                ],
+                "replicas": 1,
+                "test": false,
+                "selector": {
+                    "app": "xl-docker-demo-xlr",
+                    "deploymentconfig": "xl-docker-demo-xlr"
+                },
+                "template": {
+                    "metadata": {
+                        "creationTimestamp": null,
+                        "labels": {
+                            "app": "xl-docker-demo-xlr",
+                            "deploymentconfig": "xl-docker-demo-xlr"
+                        },
+                        "annotations": {
+                            "openshift.io/generated-by": "OpenShiftNewApp"
+                        }
+                    },
+                    "spec": {
+                        "volumes": [
+                            {
+                                "name": "license-volume",
+                                "configMap": {
+                                    "name": "xlrelease-license",
+                                    "defaultMode": 420
+                                }
+                            },
+                            {
+                                "name": "xlrelease-repository",
+                                "persistentVolumeClaim": {
+                                    "claimName": "xlrelease-repository"
+                                }
+                            }
+                        ],
+                        "containers": [
+                            {
+                                "name": "xl-docker-demo-xlr",
+                                "image": "",
+                                "ports": [
+                                    {
+                                        "containerPort": 5516,
+                                        "protocol": "TCP"
+                                    }
+                                ],
+                                "resources": {
+                                    "limits": {
+                                        "cpu": "3500m",
+                                        "memory": "4Gi"
+                                    },
+                                    "requests": {
+                                        "cpu": "100m",
+                                        "memory": "256Mi"
+                                    }
+                                },
+                                "volumeMounts": [
+                                    {
+                                        "name": "license-volume",
+                                        "mountPath": "/license"
+                                    },
+                                    {
+                                        "name": "xlrelease-repository",
+                                        "mountPath": "/xlrelease-repository"
+                                    }
+                                ],
+                                "terminationMessagePath": "/dev/termination-log",
+                                "terminationMessagePolicy": "File",
+                                "imagePullPolicy": "Always"
+                            }
+                        ],
+                        "restartPolicy": "Always",
+                        "terminationGracePeriodSeconds": 30,
+                        "dnsPolicy": "ClusterFirst",
+                        "securityContext": {},
+                        "schedulerName": "default-scheduler"
+                    }
+                }
+            }
+        },
+        {
+            "kind": "PersistentVolumeClaim",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "xlrelease-repository"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "5Gi"
+                    }
+                }
+            }
+        },
+        {
+            "kind": "PersistentVolumeClaim",
+            "apiVersion": "v1",
+            "metadata": {
+                "name": "xlrelease-repository-archive"
+            },
+            "spec": {
+                "accessModes": [
+                    "ReadWriteOnce"
+                ],
+                "resources": {
+                    "requests": {
+                        "storage": "5Gi"
+                    }
+                }
+            }
+        }
+    ],
+    "parameters": [
+        {
+            "name" : "IMAGESTREAM_NAMESPACE",
+            "required": true
+        },
+        {
+            "name": "IMAGESTREAM_NAME",
+            "value": "xlr-openshift"
+        },
+        {
+            "name": "IMAGESTREAM_TAG",
+            "value": "latest"
+        }
+    ]
+}
